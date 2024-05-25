@@ -65,4 +65,5 @@ async def upload_file(file: UploadFile = File(...)):
     with open(file_path, "wb") as f:
         f.write(await file.read())
     model(file.filename)
+    
     return {"filename": file.filename,"answer":'your model is ready for answers'}
