@@ -82,6 +82,7 @@ def model(file):
     pdf_file_path = os.path.join(os.path.dirname(__file__), "uploaded_files", file)
     initialize_retrieval(pdf_file_path)
 def response(question):
+    global pdf_file_path
     index, docs, model = initialize_retrieval(pdf_file_path)
 
     # Load index and documents

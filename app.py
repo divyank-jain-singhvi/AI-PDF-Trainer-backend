@@ -38,7 +38,7 @@ def get_db():
 def read_api(db:Session=Depends(get_db)):
     return db.query(models.Question).all()
 
-@app.post("/response")
+@app.post("/request")
 def create_question(question:Question,db:Session=Depends(get_db)):
     question_model=models.Question()
     question_model.question=question.question
