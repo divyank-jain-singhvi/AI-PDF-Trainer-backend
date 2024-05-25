@@ -10,7 +10,7 @@ from train_model import model,response
 app = FastAPI()
 
 origins=[
-    'http://localhost:3000'
+    'https://ai-pdf-trainer-frontend.vercel.app/'
     ]
 
 app.add_middleware(
