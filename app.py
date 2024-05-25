@@ -55,7 +55,7 @@ def create_question(question:Question,db:Session=Depends(get_db)):
 
 @app.post('/uploadfile')
 async def upload_file(file: UploadFile = File(...)):
-    upload_dir = "D:/Full stack pdf analyze project/backend/uploaded file/"
+    upload_dir = os.path.join(os.path.dirname(__file__), "uploaded_files")
     os.makedirs(upload_dir, exist_ok=True)  # Create the directory if it doesn't exist
     
     # Concatenate the directory path with the file name to get the full path

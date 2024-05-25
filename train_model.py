@@ -79,7 +79,8 @@ df_file_path =''
 def model(file):
     global pdf_file_path 
     # Initialize retrieval system
-    pdf_file_path = 'D:/Full stack pdf analyze project/backend/uploaded file/'+file
+    pdf_file_path = os.path.join(os.path.dirname(__file__), "uploaded_files", file)
+    initialize_retrieval(pdf_file_path)
 def response(question):
     index, docs, model = initialize_retrieval(pdf_file_path)
 

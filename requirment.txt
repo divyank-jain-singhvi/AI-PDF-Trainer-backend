@@ -1,3 +1,1 @@
-pip install faiss-cpu numpy transformers sentence-transformers langchain pymupdf
-pip install SQLAlchemy
-pip install fastapi sqlalchemy pydantic uvicorn pymupdf
+pip install faiss-cpu numpy transformers sentence-transformers langchain pymupdf SQLAlchemy fastapi sqlalchemy pydantic uvicorn pymupdf langchain-community
