@@ -5,9 +5,10 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModel
 from sentence_transformers import SentenceTransformer
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import UnstructuredURLLoader, UnstructuredFileLoader
+from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.document_loaders import UnstructuredFileLoader
 import langchain
-import fitz  # PyMuPDF
+import fitz
 
 def initialize_retrieval(pdf_file_path, model_name='sentence-transformers/all-MiniLM-L6-v2'):
     # Initialize Hugging Face model for embeddings
@@ -76,13 +77,12 @@ def retrieval_qa_with_sources(query, retriever, top_k=5):
     return {"answer": answer, "sources": sources}
 df_file_path =''
 # Example usage:
-def model(file):
+def model_file(file):
     global pdf_file_path 
     # Initialize retrieval system
     pdf_file_path = os.path.join(os.path.dirname(__file__), "uploaded_files", file)
     initialize_retrieval(pdf_file_path)
 def response(question):
-    global pdf_file_path
     index, docs, model = initialize_retrieval(pdf_file_path)
 
     # Load index and documents
@@ -95,5 +95,5 @@ def response(question):
     query = question
 
     # Perform retrieval
-    response = retrieval_qa_with_sources(query, retriever)
-    return response
+    response_message = retrieval_qa_with_sources(query, retriever)
+    return response_message

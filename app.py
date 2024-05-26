@@ -6,11 +6,13 @@ from pydantic import BaseModel,Field
 from fastapi.middleware.cors import CORSMiddleware
 import fitz
 import os
-from train_model import model,response
+from train_model import model_file,response
+
+
 app = FastAPI()
 
 origins=[
-    'https://ai-pdf-trainer-frontend.vercel.app'
+    '*'
     ]
 
 app.add_middleware(
@@ -38,7 +40,7 @@ def get_db():
 def read_api(db:Session=Depends(get_db)):
     return db.query(models.Question).all()
 
-@app.post("/request")
+@app.post("/")
 def create_question(question:Question,db:Session=Depends(get_db)):
     question_model=models.Question()
     question_model.question=question.question
@@ -53,7 +55,7 @@ def create_question(question:Question,db:Session=Depends(get_db)):
     
     return question
 
-@app.post('/')
+@app.post('/uploadfile')
 async def upload_file(file: UploadFile = File(...)):
     upload_dir = os.path.join(os.path.dirname(__file__), "uploaded_files")
     os.makedirs(upload_dir, exist_ok=True)  # Create the directory if it doesn't exist
@@ -64,6 +66,6 @@ async def upload_file(file: UploadFile = File(...)):
     # Open the file in write-binary mode and save the contents
     with open(file_path, "wb") as f:
         f.write(await file.read())
-    model(file.filename)
+    model_file(file.filename)
     
     return {"filename": file.filename,"answer":'your model is ready for answers'}
